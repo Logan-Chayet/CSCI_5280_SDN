@@ -1,0 +1,2 @@
+exit
+show ip dhcp binding

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Updating Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+</head>
+<body>
+    <div style="width: 75%; margin: 0 auto;">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        // Initialize WebSocket connection to the Flask server
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        // Chart.js setup with title and axis labels
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],  // Empty initially, to be filled dynamically
+                datasets: [{
+                    label: 'Live Data',
+                    data: [],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Packet_IN Count Over Time'  // The title of the graph
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time (seconds)'  // X-axis label
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Packet_IN Count'  // Y-axis label
+                        }
+                    }
+                }
+            }
+        });
+
+        // Listen for 'update_data' event from the server
+        socket.on('update_data', function(msg) {
+            // Assuming msg.data contains a list of new data points
+            myChart.data.labels = msg.data.map((val, index) => (index+1)*5);  // Create a label for each data point
+            myChart.data.datasets[0].data = msg.data;
+            myChart.update();  // Update the chart with new data
+        });
+    </script>
+</body>
+</html>
