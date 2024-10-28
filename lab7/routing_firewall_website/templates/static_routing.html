@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Static Routing Configuration</title>
+</head>
+<body>
+    <h1>Static Routing Configuration</h1>
+    <form action="{{ url_for('static_routing') }}" method="post">
+        
+	<label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br>
+
+	<label for="dpid">DPID:</label>
+        <input type="text" name="dpid" id="dpid" required><br>
+        
+        <label for="priority">Priority:</label>
+        <input type="text" name="priority" id="priority" required><br>
+        
+        <label for="in_port">In-Port:</label>
+        <input type="text" name="in_port" id="in_port" required><br>
+        
+        <label for="eth_type">Eth-Type:</label>
+        <input type="text" name="eth_type" id="eth_type" required><br>
+        
+        <label for="dest_ip">Dest IP:</label>
+        <input type="text" name="dest_ip" id="dest_ip"><br>
+	
+	<label for="floodport">Action:</label>
+        <input type="text" name="floodport" id="floodport"><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+    {% if static_routing_data %}
+        <h2>Submitted Static Routing Data:</h2>
+        <ul>
+	    <li>Name: {{ static_routing_data.name }}</li>
+            <li>DPID: {{ static_routing_data.dpid }}</li>
+            <li>Priority: {{ static_routing_data.priority }}</li>
+            <li>In-Port: {{ static_routing_data.in_port }}</li>
+            <li>Eth-Type: {{ static_routing_data.eth_type }}</li>
+            <li>Dest IP: {{ static_routing_data.dest_ip }}</li>
+            <li>Action: {{ static_routing_data.floodport }}</li>
+        </ul>
+    {% endif %}
+</body>
+</html>
+

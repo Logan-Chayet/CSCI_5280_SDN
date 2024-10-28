@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Firewall Configuration</title>
+</head>
+<body>
+    <h1>Firewall Configuration</h1>
+    <form action="{{ url_for('firewall') }}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br>
+
+	<label for="dpid">DPID:</label>
+        <input type="text" name="dpid" id="dpid" required><br>
+        
+        <label for="priority">Priority:</label>
+        <input type="text" name="priority" id="priority" required><br>
+        
+        <label for="in_port">In-Port:</label>
+        <input type="text" name="in_port" id="in_port" required><br>
+        
+        <label for="eth_type">Eth-Type:</label>
+        <input type="text" name="eth_type" id="eth_type" required><br>
+        
+        <label for="src_ip">Src IP:</label>
+        <input type="text" name="src_ip" id="src_ip" required><br>
+        
+        <label for="dest_ip">Dest IP:</label>
+        <input type="text" name="dest_ip" id="dest_ip" required><br>
+        
+        <label for="l4_protocol">L4 Protocol:</label>
+        <input type="text" name="l4_protocol" id="l4_protocol" required><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+    {% if firewall_data %}
+        <h2>Submitted Firewall Data:</h2>
+        <ul>
+	    <li>Name: {{ firewall_data.name }}</li>
+            <li>DPID: {{ firewall_data.dpid }}</li>
+            <li>Priority: {{ firewall_data.priority }}</li>
+            <li>In-Port: {{ firewall_data.in_port }}</li>
+            <li>Eth-Type: {{ firewall_data.eth_type }}</li>
+            <li>Src IP: {{ firewall_data.src_ip }}</li>
+            <li>Dest IP: {{ firewall_data.dest_ip }}</li>
+            <li>L4 Protocol: {{ firewall_data.l4_protocol }}</li>
+        </ul>
+    {% endif %}
+</body>
+</html>
+

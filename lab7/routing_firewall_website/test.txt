@@ -1,0 +1,2 @@
+COMMAND TO BLOCK ALL TRAFFIC:
+curl -X POST -d '{"switch": "00:00:00:00:00:00:00:01", "name": "block-icmp", "priority": "150", "eth_type": "0x0800", "ip_proto": "0x01", "active": "true", "actions": ""}' http://192.168.100.12:8080/wm/staticentrypusher/json
