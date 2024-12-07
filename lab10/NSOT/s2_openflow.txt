@@ -1,0 +1,13 @@
+openflow
+   controller-id 1 ip 172.16.10.22 port 6653 controller-interface vlan 10
+   auxiliary-connection 1 port 6653 type tcp
+   instance "lab10"
+      listen-port
+      member vlan 20
+      controller-id 1 auxiliary-connection 1
+      version 1.3
+      table-num policy-table 0
+      enable
+      exit
+   enable
+   exit
